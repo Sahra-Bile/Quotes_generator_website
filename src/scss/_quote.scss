@@ -1,0 +1,54 @@
+@use "mixins" as m;
+
+.quote-container {
+  width: auto;
+  max-width: 900px;
+  padding: 20px 30px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
+  @include m.tablet {
+    margin: auto 10px;
+  }
+
+  &__text {
+    font-size: 2.75rem;
+    @include m.tablet {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    &__twitterBtn {
+      @include m.buttons;
+      &:hover {
+        color: #38a1f3;
+      }
+    }
+    #new-quoteBtn {
+      @include m.buttons;
+    }
+  }
+
+  &__author {
+    margin-top: 15px;
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+}
+
+.fa-quote-left {
+  font-size: 4rem;
+}
+.fab {
+  font-size: 1.5rem;
+}
+
+.long-quote {
+  font-size: 2rem;
+}
