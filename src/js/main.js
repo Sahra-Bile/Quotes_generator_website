@@ -12,22 +12,23 @@ const loader = document.getElementById("loader");
 
 let apiQuotes = [];
 
-//! show loading
-function loading() {
+function ShowLoadingSpinner() {
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 //! hide loading
-function complete() {
-  quoteContainer.hidden = false;
-  loader.hidden = true;
+function removeLoadingSpinner() {
+  if (!loader.hidden) {
+    quoteContainer.hidden = false;
+    loader.hidden = true;
+  }
 }
 
 //! show new quotes
 const getNewQuotes = () => {
-  loading();
-  //! pick  a random quote from apiQuotes array
+  ShowLoadingSpinner();
 
+  //! pick  a random quote from apiQuotes array
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
   //! check if author fieldis blank and replaceit with 'Unknown
   if (!quote.author) {
@@ -44,15 +45,15 @@ const getNewQuotes = () => {
   }
   quoteText.textContent = quote.text;
   //! set quotes hide loader
-  complete();
+  removeLoadingSpinner();
 };
 
 //! Get Quotes From API
 
 //**  vi får Json från apiet som response och jag omvandlar responsen till json objekt för att web servern ger bara en massor strängar */
 
-async function getQuotes() {
-  loading();
+async function getQuotesFromApi() {
+  ShowLoadingSpinner();
   const apiUrl = "https://jacintodesign.github.io/quotes-api/data/quotes.json";
   try {
     const response = await fetch(apiUrl); //!await ger fetch tid att fetcha apien
@@ -60,8 +61,9 @@ async function getQuotes() {
     apiQuotes = await response.json();
 
     getNewQuotes(); //! function quotes generator
-  } catch (erro) {
+  } catch (error) {
     //! catch error here
+    console.log("oops no quotes", error);
   }
 }
 //! twitter quotes
@@ -74,4 +76,4 @@ newQuoteBtn.addEventListener("click", getNewQuotes);
 twitterBtn.addEventListener("click", twitterQuotes);
 
 //! on load
-getQuotes();
+getQuotesFromApi();
