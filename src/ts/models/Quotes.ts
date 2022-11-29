@@ -1,4 +1,4 @@
 export interface Quotes{
-  text: String;
-  author: string
+  text: string;
+  author: string;
 }
